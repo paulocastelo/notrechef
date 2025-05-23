@@ -1,0 +1,68 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+*.tmp
+*.temp
+*.bak
+*.orig
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.build/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Generated files
+*.g.dart
+*.freezed.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android specific
+/android/.gradle/
+/android/captures/
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+/android/local.properties
+/.cxx/
+
+# iOS specific
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/ServiceDefinitions.json
+**/ios/Pods/
+/ios/Podfile.lock
+/ios/Runner.xcworkspace/
+
+# Coverage
+coverage/
+
+# Crash logs
+flutter_*.png

@@ -1,0 +1,45 @@
+name: notrechef
+description: >
+  NotreChef é um aplicativo de gerenciamento de receitas desenvolvido em Flutter + Isar 
+  com persistência local. O app permite criar, editar, excluir e visualizar receitas culinárias, 
+  incluindo seus ingredientes, categorias, modo de preparo e rendimento.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  url_launcher: ^6.2.5
+  cupertino_icons: ^1.0.8
+
+  # Banco de dados local
+  isar: ^3.1.0
+  isar_flutter_libs: ^3.1.0
+
+  path_provider: ^2.1.2
+  json_annotation: ^4.8.1
+
+  # Ícones adicionais
+  material_symbols_icons: ^4.2569.04
+
+  # Gerenciamento de estado básico
+  provider: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+  isar_generator: ^3.1.0
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
