@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../models/receita.dart';
 import '../../services/isar_service.dart';
 import '../../services/receita_service.dart';
+import '../../utils/string_extensions.dart';
 
 /// 🏠 HomePage → Tela principal do app, exibe a lista de receitas cadastradas.
 class HomePage extends StatefulWidget {
@@ -79,9 +80,8 @@ class _HomePageState extends State<HomePage> {
 
               // 🗂️ Categoria da receita (ou texto padrão)
               subtitle: Text(
-                  receita.categoria.isNotEmpty
-                      ? receita.categoria
-                      : 'Sem categoria'),
+                receita.categoria.orDefault('Sem categoria'),
+              ),
 
               // ➡️ Ícone de seta
               trailing: const Icon(Icons.arrow_forward_ios),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../models/receita.dart';
 import '../../services/isar_service.dart';
 import '../../services/receita_service.dart';
+import '../../utils/string_extensions.dart';
 
 /// 📄 Tela que exibe os detalhes completos de uma receita
 class DetalheReceitaPage extends StatefulWidget {
@@ -37,7 +38,6 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'editar') {
-                // ✍️ Vai para o formulário com a receita como argumento
                 Navigator.pushNamed(
                   context,
                   '/form-receita',
@@ -46,7 +46,6 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
                   setState(() {}); // 🔄 Atualiza a tela ao voltar
                 });
               } else if (value == 'excluir') {
-                // 🗑️ Chama o método para excluir com confirmação
                 confirmarExclusao(receita);
               }
             },
@@ -68,7 +67,7 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
         padding: const EdgeInsets.all(12),
         child: ListView(
           children: [
-            // 🏷️ Informações principais em destaque
+            // 🏷️ Informações principais
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(12),
@@ -84,13 +83,8 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      (receita.categoria != null && receita.categoria!.isNotEmpty)
-                          ? receita.categoria!
-                          : 'Sem categoria.',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
+                      receita.categoria.orDefault('Sem categoria'),
+                      style: const TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -101,7 +95,7 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
                         const SizedBox(width: 16),
                         const Icon(Icons.restaurant, size: 18),
                         const SizedBox(width: 4),
-                        Text(receita.rendimento),
+                        Text(receita.rendimento.orDefault()),
                       ],
                     ),
                   ],
@@ -112,13 +106,13 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
             const SizedBox(height: 12),
 
             // 📝 Descrição (se houver)
-            if (receita.descricao.isNotEmpty) ...[
+            if (receita.descricao.orDefault().isNotEmpty) ...[
               const Text(
                 'Descrição',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              Text(receita.descricao),
+              Text(receita.descricao.orDefault('Sem descrição')),
               const SizedBox(height: 12),
             ],
 
@@ -133,7 +127,8 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
                 leading: const Icon(Icons.kitchen),
                 title: Text(i.nome),
                 subtitle: Text(
-                    '${i.quantidade} ${i.unidade.isNotEmpty ? i.unidade : ''}'),
+                  '${i.quantidade} ${i.unidade.orDefault()}',
+                ),
               ),
             ),
 
@@ -145,7 +140,7 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(receita.modoPreparo),
+            Text(receita.modoPreparo.orDefault('Sem modo de preparo')),
           ],
         ),
       ),
@@ -166,7 +161,7 @@ class _DetalheReceitaPageState extends State<DetalheReceitaPage> {
           ),
           TextButton(
             onPressed: () async {
-              await receitaService.removerReceita(receita);
+              await receitaService.removerReceita(receita.id);
               if (mounted) {
                 Navigator.pop(context); // Fecha o diálogo
                 Navigator.pop(context); // Volta para a HomePage
