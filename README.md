@@ -1,7 +1,7 @@
 # 🍽️ NotreChef – Gerenciador de Receitas
 
 **NotreChef** é um aplicativo desenvolvido em **Flutter** com banco de dados local utilizando **Isar Database**.  
-Seu objetivo é ajudar pessoas a organizarem suas receitas culinárias de forma simples, rápida e 100% offline, com backup e restauração local.
+Seu objetivo é ajudar pessoas a organizarem suas receitas culinárias de forma simples, rápida e 100% offline, com backup, restauração local e agora também com sistema de temas personalizados e persistentes.
 
 ---
 
@@ -14,7 +14,10 @@ Seu objetivo é ajudar pessoas a organizarem suas receitas culinárias de forma 
 - ✅ Backup dos dados em arquivo JSON
 - ✅ Restauração dos dados a partir de um arquivo JSON
 - ✅ Apagar todos os dados do banco local
-- ✅ Alternância de tema (Claro / Escuro)
+- ✅ Alternância de tema (Notebook, Clean, Gourmet)
+- ✅ Tema persistente salvo no banco de dados
+- ✅ Suporte inicial a Dark Mode no tema Notebook
+- ✅ Tela de Configurações para seleção de tema
 - ✅ Tela de Sobre com links de apoio
 - ✅ Operação 100% offline
 - ✅ Interface gráfica responsiva com **Material 3 (Material You)**
@@ -26,12 +29,13 @@ Seu objetivo é ajudar pessoas a organizarem suas receitas culinárias de forma 
 
 ```plaintext
 lib/
-├── models/           # Modelos de dados (Receita e Ingrediente)
-├── services/         # Serviços (IsarService, ReceitaService, BackupService)
+├── models/           # Modelos de dados (Receita, Ingrediente, AppConfig)
+├── services/         # Serviços (IsarService, ReceitaService, BackupService, ConfigService)
+├── themes/           # Sistema de temas (AppThemes, ThemeManager, ThemeTokens)
 ├── ui/
-│   └── pages/        # Telas do app (Home, Formulário, Detalhe, Configurações, Sobre)
+│   ├── pages/        # Telas do app (Home, Formulário, Detalhe, Configurações, Sobre)
+│   └── widgets/      # Componentes reutilizáveis (cards, botões, etc.)
 ├── utils/            # Extensões e funções auxiliares (tratamento de strings, listas, etc.)
-├── app.dart          # Configurações de tema e navegação
 └── main.dart         # Ponto de entrada do app
 ````
 
@@ -42,8 +46,22 @@ lib/
 * **Banco local:** Isar Database (NoSQL, extremamente rápido e orientado a objetos)
 * **Modelos principais:**
 
-  * **Receita:** Entidade principal com campos como nome, descrição, categoria, modo de preparo, tempo de preparo, rendimento e lista de ingredientes.
+  * **Receita:** Entidade principal com nome, descrição, categoria, tempo de preparo, rendimento, modo de preparo e lista de ingredientes.
   * **Ingrediente:** Entidade embutida na Receita.
+  * **AppConfig:** Armazena configurações do app, como tema selecionado e status de Dark Mode.
+
+---
+
+## 🎨 Sistema de Temas
+
+* Suporte a múltiplos temas:
+
+  * 🎨 **Notebook** – Tema padrão (inspirado em caderno de receitas)
+  * ⚪ **Clean** – Tema branco, minimalista
+  * ⚫ **Gourmet** – Tema elegante, preto e dourado
+* Suporte a Dark Mode no tema Notebook
+* Persistência do tema e preferências no banco de dados (Isar)
+* Gerenciado pela classe `ThemeManager` e pelo serviço `ConfigService`
 
 ---
 
@@ -56,9 +74,9 @@ lib/
 * **Serialização:** json\_annotation + json\_serializable
 * **Geradores:** build\_runner + isar\_generator
 * **Navegação:** Navigator padrão do Flutter
-* **Tema:** Material 3 (Material You)
+* **Tema:** Material 3 (Material You) + Sistema de Temas Personalizados
 * **Abrir links externos:** url\_launcher
-* **Gerenciamento de estado:** StatefulWidget (fase inicial)
+* **Gerenciamento de estado:** Provider (para temas) + StatefulWidget (demais telas, fase inicial)
 * **Validações:** Nativas do Flutter (`Form` + `TextFormField`)
 
 ---
@@ -126,12 +144,14 @@ O backup é salvo no diretório de documentos do app:
 * ✅ Tela inicial (Home)
 * ✅ Formulário de criação e edição de receitas
 * ✅ Tela de detalhes da receita
-* ✅ Tela de configurações
+* ✅ Tela de configurações com seletor de tema
 * ✅ Tela de sobre o app com links de apoio
-* ✅ Alternância de tema (claro/escuro)
+* ✅ Alternância de tema (Notebook, Clean, Gourmet) com persistência
+* ✅ Gerenciamento de tema global com Provider e Isar
+* 🚀 Suporte completo a Dark Mode em todos os temas (futuro)
 * 🚀 Refinamento de UI e experiência do usuário
-* 🚀 Gerenciamento de estado (Provider, Riverpod ou outros - Futuro)
-* 🚀 Deploy na Play Store e Desktop (Futuro)
+* 🚀 Gerenciamento de estado avançado (Riverpod ou outro - futuro)
+* 🚀 Deploy na Play Store e Desktop (futuro)
 
 ---
 
@@ -145,7 +165,7 @@ Sinta-se à vontade para abrir **issues**, enviar **pull requests** ou sugerir m
 ## 🧠 Sobre este Projeto
 
 Este projeto faz parte de um processo de **aprendizado, desenvolvimento e prototipagem** para apps Flutter com banco de dados local.
-Ele também visa criar uma base para outros aplicativos educativos e comerciais no futuro.
+Ele também visa criar uma base para outros aplicativos educativos e comerciais no futuro, com foco em qualidade de código, arquitetura escalável e design elegante.
 
 ---
 
@@ -153,9 +173,9 @@ Ele também visa criar uma base para outros aplicativos educativos e comerciais 
 
 Desenvolvido por **Paulo Castelo – Mr. Anderson (ZeroAvenger)**
 
- • 🚀 [LinkedIn](https://www.linkedin.com/in/paulo-castelo/) 
- • 💻 [GitHub](https://github.com/paulocastelo) 
- • 🌐 [Portfólio (Em construção)](https://github.com/paulocastelo)
+• 🚀 [LinkedIn](https://www.linkedin.com/in/paulo-castelo/)
+• 💻 [GitHub](https://github.com/paulocastelo)
+• 🌐 [Portfólio (Em construção)](https://github.com/paulocastelo)
 
 ---
 

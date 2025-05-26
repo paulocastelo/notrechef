@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-// Importando as páginas
+// Importação das páginas
 import 'ui/pages/home_page.dart';
 import 'ui/pages/form_receita_page.dart';
 import 'ui/pages/detalhe_receita_page.dart';
 import 'ui/pages/configuracoes_page.dart';
 import 'ui/pages/sobre_page.dart';
 
-/// 🎨 Widget principal que configura o tema e as rotas
+// Importação das rotas centralizadas
+import 'app_routes.dart';
+
+/// 🎨 Widget principal que configura tema, navegação e estrutura do app
 class NotreChefApp extends StatelessWidget {
   const NotreChefApp({super.key});
 
@@ -17,31 +20,27 @@ class NotreChefApp extends StatelessWidget {
       title: 'NotreChef',
       debugShowCheckedModeBanner: false,
 
-      // 🔥 Tema claro
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.teal,
         brightness: Brightness.light,
       ),
 
-      // 🌙 Tema escuro
       darkTheme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.teal,
         brightness: Brightness.dark,
       ),
 
-      // 🎛️ Tema segue o sistema
       themeMode: ThemeMode.system,
 
-      // 🔗 Rotas nomeadas
-      initialRoute: '/',
+      initialRoute: AppRoutes.home,
       routes: {
-        '/': (context) => const HomePage(),
-        '/form-receita': (context) => const FormReceitaPage(),
-        '/detalhe': (context) => const DetalheReceitaPage(),
-        '/configuracoes': (context) => const ConfiguracoesPage(),
-        '/sobre': (context) => const SobrePage(),
+        AppRoutes.home: (context) => const HomePage(),
+        AppRoutes.formReceita: (context) => const FormReceitaPage(),
+        AppRoutes.detalheReceita: (context) => const DetalheReceitaPage(), // ✅ Corrigido aqui
+        AppRoutes.configuracoes: (context) => const ConfiguracoesPage(),
+        AppRoutes.sobre: (context) => const SobrePage(),
       },
     );
   }
